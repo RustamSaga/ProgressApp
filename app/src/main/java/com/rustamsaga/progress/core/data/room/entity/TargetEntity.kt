@@ -1,10 +1,10 @@
-package com.rustamsaga.progress.data.entity
+package com.rustamsaga.progress.core.data.room.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
-import com.rustamsaga.progress.data.Headings
+import com.rustamsaga.progress.core.data.room.Headings
 
 @Entity(
     tableName = Headings.TARGET_TABLE,
@@ -22,5 +22,6 @@ data class TargetEntity(
     val name: String,
     val personId: Int,
     val parentTarget: Int,
-    val isGroup: Boolean
+    val isGroup: Boolean,
+    val checkInTime: String
     )

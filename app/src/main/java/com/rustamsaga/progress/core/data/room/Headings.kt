@@ -1,4 +1,4 @@
-package com.rustamsaga.progress.data
+package com.rustamsaga.progress.core.data.room
 
 object Headings {
 
@@ -7,5 +7,7 @@ object Headings {
     const val TARGET_TABLE = "target_table"
     const val CURRENT_PROGRESS_TABLE = "current_progress_table"
     const val STANDARD_PROGRESS_TABLE = "standard_progress_table"
+
+    const val TEST_DATABASE = "test_db"
 
 }

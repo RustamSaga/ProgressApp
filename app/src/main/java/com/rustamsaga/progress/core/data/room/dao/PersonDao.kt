@@ -1,11 +1,11 @@
-package com.rustamsaga.progress.data.dao
+package com.rustamsaga.progress.core.data.room.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
-import com.rustamsaga.progress.data.entity.PersonEntity
+import com.rustamsaga.progress.core.data.room.entity.PersonEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
