@@ -2,7 +2,6 @@ package com.rustamsaga.progress.core.data.room.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import com.rustamsaga.progress.core.data.room.Headings
 
@@ -13,7 +12,7 @@ import com.rustamsaga.progress.core.data.room.Headings
             entity = PersonEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("personId"),
-            onDelete = CASCADE
+            onDelete = ForeignKey.CASCADE
         )]
 )
 data class TargetEntity(
