@@ -1,38 +1,36 @@
 package com.rustamsaga.progress.core.data
 
 import android.content.Context
-import androidx.room.DatabaseConfiguration
-import androidx.room.InvalidationTracker
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteOpenHelper
-import com.rustamsaga.progress.core.data.room.Headings
-import com.rustamsaga.progress.core.data.room.ProgressDatabase
-import com.rustamsaga.progress.core.data.room.dao.CurrentProgressDao
-import com.rustamsaga.progress.core.data.room.dao.PersonDao
-import com.rustamsaga.progress.core.data.room.dao.StandardProgressDao
-import com.rustamsaga.progress.core.data.room.dao.TargetDao
+import com.rustamsaga.progress.core.data.local.Headings
+import com.rustamsaga.progress.core.data.local.ProgressDatabase
+import com.rustamsaga.progress.core.data.local.dao.*
 
+
+// TODO сделать для каждого экрана свое дао
 interface CacheDataSource :
-    PersonCacheDataSource,
-    TargetCacheDataSource,
+    ObjectOfObservationCacheDataSource,
+    ProgressTargetCacheDataSource,
     CurrentProgressDataSource,
-    StandardProgressDataSource {
+    StandardProgressDataSource,
+    TargetDataSource,
+    NoteOfObjectDataSource,
+    NoteOfTargetDataSource {
 
-    class Base(context: Context) : CacheDataSource {
+    abstract class Base(context: Context) : CacheDataSource {
 
         private val ProgressDB: ProgressDatabase = Room.databaseBuilder(
             context,
             ProgressDatabase::class.java,
-            Headings.TEST_DATABASE
+            Headings.DATABASE_NAME
         ).build()
 
-        override fun personDao(): PersonDao {
-            return ProgressDB.personDao()
+        override fun objectOfObservationDao(): ObjectOfObservationDao {
+            return ProgressDB.objectOfObservationDao()
         }
 
-        override fun targetDao(): TargetDao {
-            return ProgressDB.targetDao()
+        override fun progressTargetDao(): ProgressTargetDao {
+            return ProgressDB.progressTargetDao()
         }
 
         override fun currentProgressDao(): CurrentProgressDao {
@@ -43,16 +41,28 @@ interface CacheDataSource :
             return ProgressDB.standardProgressDao()
         }
 
+        override fun targetDao(): TargetDao {
+            return ProgressDB.targetDao()
+        }
+
+        override fun noteOfObjectDao(): NoteOfObjectDao {
+            return ProgressDB.noteObjectOfObservationDao()
+        }
+
+        override fun noteOfTargetDao(): NoteOfTargetDao {
+            return ProgressDB.noteOfTargetDao()
+        }
+
     }
 
 }
 
-interface PersonCacheDataSource {
-    fun personDao(): PersonDao
+interface ObjectOfObservationCacheDataSource {
+    fun objectOfObservationDao(): ObjectOfObservationDao
 }
 
-interface TargetCacheDataSource {
-    fun targetDao(): TargetDao
+interface ProgressTargetCacheDataSource {
+    fun progressTargetDao(): ProgressTargetDao
 }
 
 interface CurrentProgressDataSource {
@@ -61,4 +71,16 @@ interface CurrentProgressDataSource {
 
 interface StandardProgressDataSource {
     fun standardProgressDao(): StandardProgressDao
+}
+
+interface TargetDataSource {
+    fun targetDao(): TargetDao
+}
+
+interface NoteOfObjectDataSource {
+    fun noteOfObjectDao(): NoteOfObjectDao
+}
+
+interface NoteOfTargetDataSource {
+    fun noteOfTargetDao(): NoteOfTargetDao
 }

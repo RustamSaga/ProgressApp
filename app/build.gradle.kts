@@ -45,7 +45,7 @@ android {
             )
         }
     }
-    namespace = "com.rustamsaga.callorytracker"
+    namespace = "com.rustamsaga.progress"
 }
 
 dependencies {

@@ -1,0 +1,7 @@
+package com.rustamsaga.progress.core.domain.models
+
+interface TargetsInterface
+interface ObjectsInterface
+interface NoteOfObjectInterface
+interface NoteOfTargetInterface
+interface ProgressInterface
