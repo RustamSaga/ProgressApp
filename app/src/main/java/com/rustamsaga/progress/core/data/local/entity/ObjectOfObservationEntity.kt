@@ -2,9 +2,8 @@ package com.rustamsaga.progress.core.data.local.entity
 
 import androidx.room.*
 import com.rustamsaga.progress.core.data.local.Headings
-import com.rustamsaga.progress.core.data.mapper.ObjectOfObservationMapper
-import com.rustamsaga.progress.core.domain.models.NoteOfObjectInterface
-import com.rustamsaga.progress.core.domain.models.ObjectsInterface
+import com.rustamsaga.progress.core.domain.mapper.NoteMapper
+import com.rustamsaga.progress.core.domain.mapper.ObjectOfObservationMapper
 import com.rustamsaga.progress.core.utils.TimeConverters
 import java.time.OffsetDateTime
 
@@ -22,7 +21,7 @@ data class ObjectOfObservationEntity(
     val checkInTime: OffsetDateTime,
     val isActive: Boolean,
 ) {
-    suspend fun <T> map(mapper: ObjectOfObservationMapper<T>): T = mapper.mapObject(
+    suspend fun <O, T, N> map(mapper: ObjectOfObservationMapper<O>): O = mapper.mapObject(
         id = id!!,
         firstName = firstName,
         lastName = lastName,
@@ -30,8 +29,8 @@ data class ObjectOfObservationEntity(
         observed = observed,
         checkInTime = checkInTime,
         isActive = isActive,
-        targets = emptyList<Any>(),
-        notes = emptyList<Any>()
+        targets = emptyList<T>(),
+        notes = emptyList<N>()
     )
 }
 
@@ -54,4 +53,12 @@ data class NoteOfObjectEntity(
     val userId: Long,
     @TypeConverters(TimeConverters::class)
     val checkInTime: OffsetDateTime
-)
+) {
+    fun <T> map(mapper: NoteMapper<T>): T = mapper.map(
+        noteId = noteId!!,
+        title = title,
+        description = description,
+        parentId = userId,
+        checkInTime = checkInTime
+    )
+}

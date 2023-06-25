@@ -1,7 +1,9 @@
 package com.rustamsaga.progress.core.domain.models
 
-import com.rustamsaga.progress.core.data.mapper.NoteMapper
-import com.rustamsaga.progress.core.data.mapper.ObjectOfObservationMapper
+import com.rustamsaga.progress.core.domain.mapper.NoteBoxMapper
+import com.rustamsaga.progress.core.domain.mapper.NoteMapper
+import com.rustamsaga.progress.core.domain.mapper.ObjectOfObservationMapper
+import com.rustamsaga.progress.core.domain.mapper.TargetBoxMapper
 import java.time.OffsetDateTime
 
 data class ObjectOfObservationModel(
@@ -14,9 +16,13 @@ data class ObjectOfObservationModel(
     val isActive: Boolean,
     val targets: List<ProgressTargetModel>,
     val notes: List<NoteOfObjectModel>
-) : ObjectsInterface {
+) {
 
-    suspend fun <T> map(mapper: ObjectOfObservationMapper<T>): T = mapper.mapObject(
+    suspend fun <T> map(
+        mapper: ObjectOfObservationMapper<T>,
+        noteBox: NoteBoxMapper,
+        targetBox: TargetBoxMapper
+    ): T = mapper.mapObject(
         id = id,
         firstName = firstName,
         lastName = lastName,
@@ -24,8 +30,8 @@ data class ObjectOfObservationModel(
         observed = observed,
         checkInTime = checkInTime,
         isActive = isActive,
-        targets = targets,
-        notes = notes
+        targets = targetBox,
+        notes = noteBox
     )
 }
 
@@ -35,7 +41,7 @@ data class NoteOfObjectModel(
     val description: String,
     val userId: Long,
     val checkInTime: OffsetDateTime
-) : NoteOfObjectInterface {
+) {
     fun <T> map(mapper: NoteMapper<T>): T = mapper.map(
         noteId = noteId,
         title = title,

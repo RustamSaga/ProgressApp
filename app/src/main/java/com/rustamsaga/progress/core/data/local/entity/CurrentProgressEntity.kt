@@ -2,9 +2,8 @@ package com.rustamsaga.progress.core.data.local.entity
 
 import androidx.room.*
 import com.rustamsaga.progress.core.data.local.Headings
-import com.rustamsaga.progress.core.data.mapper.ProgressMapper
+import com.rustamsaga.progress.core.domain.mapper.ProgressMapper
 import com.rustamsaga.progress.core.domain.models.CurrentProgressModel
-import com.rustamsaga.progress.core.domain.models.ProgressInterface
 import com.rustamsaga.progress.core.utils.TimeConverters
 import java.time.OffsetDateTime
 

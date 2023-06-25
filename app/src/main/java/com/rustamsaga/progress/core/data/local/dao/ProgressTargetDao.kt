@@ -14,7 +14,10 @@ interface ProgressTargetDao {
 
     @Transaction
     @Query("SELECT * FROM progress_target_table WHERE id =:id")
-    suspend fun getTargetById(id: Long): ProgressTargetData?
+    suspend fun getTargetDataById(id: Long): ProgressTargetData?
+
+    @Query("SELECT * FROM progress_target_table WHERE id =:id")
+    suspend fun getTargetEntityById(id: Long): ProgressTargetEntity?
 
     @Transaction
     @Query("SELECT * FROM progress_target_table")

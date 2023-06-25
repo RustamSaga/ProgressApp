@@ -7,7 +7,6 @@ import com.rustamsaga.progress.core.data.local.ProgressDatabase
 import com.rustamsaga.progress.core.data.local.dao.*
 
 
-// TODO сделать для каждого экрана свое дао
 interface CacheDataSource :
     ObjectOfObservationCacheDataSource,
     ProgressTargetCacheDataSource,

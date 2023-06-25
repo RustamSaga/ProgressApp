@@ -5,8 +5,6 @@ import androidx.room.OnConflictStrategy.Companion.REPLACE
 import com.rustamsaga.progress.core.data.local.entity.ObjectOfObservationData
 import com.rustamsaga.progress.core.data.local.entity.ObjectOfObservationEntity
 import kotlinx.coroutines.flow.Flow
-import java.time.OffsetDateTime
-
 
 @Dao
 interface ObjectOfObservationDao {
@@ -14,11 +12,15 @@ interface ObjectOfObservationDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertObject(obj: ObjectOfObservationEntity)
 
-    @Query("SELECT * FROM person_table WHERE id =:id")
-    suspend fun getObjectById(id: Long): ObjectOfObservationEntity?
+    //TODO entity in target, note screens
+//    @Query("SELECT id, firstName, lastName, isActive FROM person_table WHERE id =:id")
+//    suspend fun getAPartOfObject(id: Long): ObjectOfObservationEntity?
 
     @Query("SELECT * FROM person_table WHERE id =:id")
-    suspend fun getObjectById2(id: Long): ObjectOfObservationData?
+    suspend fun getObjectWholly(id: Long): ObjectOfObservationData?
+
+    @Query("SELECT * FROM person_table WHERE id =:id")
+    suspend fun getObject(id: Long): ObjectOfObservationEntity
 
     @Query(
         """

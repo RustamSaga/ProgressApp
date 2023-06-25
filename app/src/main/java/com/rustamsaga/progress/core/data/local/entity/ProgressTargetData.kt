@@ -2,13 +2,12 @@ package com.rustamsaga.progress.core.data.local.entity
 
 import androidx.room.Relation
 import com.rustamsaga.progress.core.data.local.Headings
-import com.rustamsaga.progress.core.data.mapper.NoteMapper
-import com.rustamsaga.progress.core.data.mapper.ProgressMapper
-import com.rustamsaga.progress.core.data.mapper.TargetMapper
+import com.rustamsaga.progress.core.domain.mapper.NoteMapper
+import com.rustamsaga.progress.core.domain.mapper.ProgressMapper
+import com.rustamsaga.progress.core.domain.mapper.TargetMapper
 import com.rustamsaga.progress.core.domain.models.CurrentProgressModel
-import com.rustamsaga.progress.core.domain.models.NoteOfTargetModel
+import com.rustamsaga.progress.core.domain.models.NoteOfProgressTargetModel
 import com.rustamsaga.progress.core.domain.models.StandardProgressModel
-import com.rustamsaga.progress.core.domain.models.TargetsInterface
 import java.time.OffsetDateTime
 
 data class ProgressTargetData(
@@ -17,7 +16,7 @@ data class ProgressTargetData(
     val description: String,
     val userId: Long,
     val parentTarget: Long = Headings.NO_PARENTS,
-    val isGroup: Boolean,
+    val isParent: Boolean,
     val checkInTime: OffsetDateTime,
     val isActive: Boolean,
     @Relation(
@@ -36,11 +35,12 @@ data class ProgressTargetData(
     )
     val standardProgress: List<StandardProgressEntity>
 ) {
+
     fun <T> map(
         targetMapper: TargetMapper<T>,
         currentProgressMapper: ProgressMapper<CurrentProgressModel>,
         standardProgressMapper: ProgressMapper<StandardProgressModel>,
-        noteMapper: NoteMapper<NoteOfTargetModel>
+        noteMapper: NoteMapper<NoteOfProgressTargetModel>
     ): T =
         targetMapper.mapProgressTarget(
             id = id,
@@ -48,7 +48,7 @@ data class ProgressTargetData(
             description = description,
             userId = userId,
             parentTarget = parentTarget,
-            isGroup = isGroup,
+            isParent = isParent,
             checkInTime = checkInTime,
             isActive = isActive,
             targets = emptyList(),

@@ -3,7 +3,6 @@ package com.rustamsaga.progress.core.data.local.dao
 import androidx.room.*
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import com.rustamsaga.progress.core.data.local.entity.NoteOfObjectEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteOfObjectDao {
@@ -20,7 +19,10 @@ interface NoteOfObjectDao {
            WHERE userId =:userId AND checkInTime LIKE :date
         """
     )
-    suspend fun getNoteByDate(userId: Long, date: String): List<NoteOfObjectEntity>
+    suspend fun getNotesByDate(userId: Long, date: String): List<NoteOfObjectEntity>
+
+    @Query("SELECT * FROM note_of_object WHERE userId =:userId")
+    suspend fun getNotesByUser(userId: Long): List<NoteOfObjectEntity>
 
     @Query(
         """

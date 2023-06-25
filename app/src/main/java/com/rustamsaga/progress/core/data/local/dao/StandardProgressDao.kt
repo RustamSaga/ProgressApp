@@ -13,7 +13,7 @@ import java.time.OffsetDateTime
 interface StandardProgressDao {
 
     @Insert
-    suspend fun insertCurrentProgress(standardProgress: StandardProgressEntity)
+    suspend fun insertStandardProgress(standardProgress: StandardProgressEntity)
 
     @Update
     suspend fun updateStandardProgress(standardProgress: StandardProgressEntity)

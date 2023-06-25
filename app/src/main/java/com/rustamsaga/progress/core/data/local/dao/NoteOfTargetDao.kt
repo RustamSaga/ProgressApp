@@ -1,9 +1,7 @@
 package com.rustamsaga.progress.core.data.local.dao
 
 import androidx.room.*
-import com.rustamsaga.progress.core.data.local.entity.NoteOfObjectEntity
 import com.rustamsaga.progress.core.data.local.entity.NoteOfProgressTargetEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteOfTargetDao {
@@ -30,15 +28,15 @@ interface NoteOfTargetDao {
            WHERE targetId =:targetId
         """
     )
-    suspend fun getNoteByTargetId(targetId: Long): List<NoteOfProgressTargetEntity>
+    suspend fun getNotesByTargetId(targetId: Long): List<NoteOfProgressTargetEntity>
 
     @Query(
         """
             SELECT
             EXISTS (SELECT title, checkInTime FROM note_of_target 
-            WHERE targetId =:targetId AND checkInTime =:checkInTime)
+            WHERE title =:title AND checkInTime =:checkInTime)
         """
     )
-    suspend fun contains(targetId: Long, checkInTime: String): Boolean
+    suspend fun contains(title: String, checkInTime: String): Boolean
 
 }

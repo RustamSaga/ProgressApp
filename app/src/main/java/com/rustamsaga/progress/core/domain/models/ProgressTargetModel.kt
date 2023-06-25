@@ -1,8 +1,8 @@
 package com.rustamsaga.progress.core.domain.models
 
 
-import com.rustamsaga.progress.core.data.mapper.NoteMapper
-import com.rustamsaga.progress.core.data.mapper.TargetMapper
+import com.rustamsaga.progress.core.domain.mapper.NoteMapper
+import com.rustamsaga.progress.core.domain.mapper.TargetMapper
 import java.time.OffsetDateTime
 
 
@@ -12,14 +12,14 @@ data class ProgressTargetModel(
     val description: String,
     val userId: Long,
     val parentTarget: Long,
-    val isGroup: Boolean,
+    val isParent: Boolean,
     val checkInTime: OffsetDateTime,
     val isActive: Boolean,
     val targets: List<ProgressTargetModel>,
-    val notes: List<NoteOfTargetModel>,
+    val notes: List<NoteOfProgressTargetModel>,
     val currentProgress: List<CurrentProgressModel>,
     val standardProgress: List<StandardProgressModel>
-) : TargetsInterface {
+) {
 
     fun <T> map(mapper: TargetMapper<T>): T = mapper.mapProgressTarget(
         id,
@@ -27,7 +27,7 @@ data class ProgressTargetModel(
         description,
         userId,
         parentTarget,
-        isGroup,
+        isParent,
         checkInTime,
         isActive,
         targets,
@@ -37,13 +37,13 @@ data class ProgressTargetModel(
     )
 }
 
-data class NoteOfTargetModel(
+data class NoteOfProgressTargetModel(
     val noteId: Long,
     val title: String,
     val description: String,
     val targetId: Long,
     val checkInTime: OffsetDateTime,
-) : NoteOfTargetInterface {
+) {
     fun <T> map(mapper: NoteMapper<T>): T = mapper.map(
         noteId = noteId,
         title = title,

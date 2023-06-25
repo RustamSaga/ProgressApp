@@ -5,9 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.rustamsaga.progress.core.data.local.Headings
-import com.rustamsaga.progress.core.data.mapper.ProgressMapper
-import com.rustamsaga.progress.core.domain.models.CurrentProgressModel
-import com.rustamsaga.progress.core.domain.models.ProgressInterface
+import com.rustamsaga.progress.core.domain.mapper.ProgressMapper
 import com.rustamsaga.progress.core.domain.models.StandardProgressModel
 import com.rustamsaga.progress.core.utils.TimeConverters
 import java.time.OffsetDateTime

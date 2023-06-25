@@ -1,8 +1,7 @@
 package com.rustamsaga.progress.core.data.local.entity
 
 import androidx.room.Relation
-import com.rustamsaga.progress.core.data.mapper.ObjectOfObservationMapper
-import com.rustamsaga.progress.core.domain.models.ObjectsInterface
+import com.rustamsaga.progress.core.domain.mapper.*
 import java.time.OffsetDateTime
 
 data class ObjectOfObservationData(
@@ -19,7 +18,11 @@ data class ObjectOfObservationData(
     )
     val notes: List<NoteOfObjectEntity>
 ) {
-    suspend fun <O, T, N> map(mapper: ObjectOfObservationMapper.<O, T, N>): T = mapper.mapObject(
+    suspend fun <O> map(
+        mapper: ObjectOfObservationMapper<O>,
+        noteBox: NoteBoxMapper,
+        targetBox: TargetBoxMapper
+    ): O = mapper.mapObject(
         id = id,
         firstName = firstName,
         lastName = lastName,
@@ -27,7 +30,7 @@ data class ObjectOfObservationData(
         observed = observed,
         checkInTime = checkInTime,
         isActive = isActive,
-        targets = targets,
-        notes = notes
+        targets = targetBox,
+        notes = noteBox
     )
 }

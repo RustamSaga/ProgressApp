@@ -2,11 +2,8 @@ package com.rustamsaga.progress.core.data.local.entity
 
 import androidx.room.*
 import com.rustamsaga.progress.core.data.local.Headings
-import com.rustamsaga.progress.core.data.mapper.NoteMapper
-import com.rustamsaga.progress.core.data.mapper.TargetMapper
-import com.rustamsaga.progress.core.domain.models.NoteOfTargetInterface
-import com.rustamsaga.progress.core.domain.models.NoteOfTargetModel
-import com.rustamsaga.progress.core.domain.models.TargetsInterface
+import com.rustamsaga.progress.core.domain.mapper.NoteMapper
+import com.rustamsaga.progress.core.domain.mapper.TargetMapper
 import com.rustamsaga.progress.core.utils.TimeConverters
 import java.time.OffsetDateTime
 
@@ -27,7 +24,7 @@ data class ProgressTargetEntity(
     val description: String,
     val userId: Long,
     val parentTarget: Long = Headings.NO_PARENTS,
-    val isGroup: Boolean,
+    val isParent: Boolean,
     @TypeConverters(TimeConverters::class)
     val checkInTime: OffsetDateTime,
     val isActive: Boolean,
@@ -40,7 +37,7 @@ data class ProgressTargetEntity(
             description = description,
             userId = userId,
             parentTarget = parentTarget,
-            isGroup = isGroup,
+            isParent = isParent,
             checkInTime = checkInTime,
             isActive = isActive,
             targets = emptyList(),
