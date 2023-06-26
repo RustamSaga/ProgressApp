@@ -11,7 +11,7 @@ interface NoteOfTargetSubdirectory {
 
         fun getNoteOfTargetByDate(targetId: Long, date: String): Flow<List<NoteOfProgressTargetEntity>>
 
-        suspend fun contains(targetId: Long, checkInTime: String): Boolean
+        suspend fun contains(title: String, checkInTime: String): Boolean
     }
 
     interface Save{
@@ -33,14 +33,14 @@ interface NoteOfTargetSubdirectory {
 
         }
 
-        override suspend fun contains(targetId: Long, checkInTime: String): Boolean {
-            return cache.noteOfTargetDao().contains(targetId, checkInTime)
+        override suspend fun contains(title: String, checkInTime: String): Boolean {
+            return cache.noteOfTargetDao().contains(title, checkInTime)
         }
 
         override suspend fun insertNote(note: NoteOfProgressTargetEntity): Boolean {
             cache.noteOfTargetDao().insertNote(note)
             return cache.noteOfTargetDao().contains(
-                targetId = note.targetId,
+                title = note.title,
                 checkInTime = TimeConverters().fromOffsetDateTime(note.checkInTime)
             )
         }
@@ -48,7 +48,7 @@ interface NoteOfTargetSubdirectory {
         override suspend fun deleteNote(note: NoteOfProgressTargetEntity): Boolean {
             cache.noteOfTargetDao().deleteNote(note)
             return cache.noteOfTargetDao().contains(
-                targetId = note.targetId,
+                title = note.title,
                 checkInTime = TimeConverters().fromOffsetDateTime(note.checkInTime)
             )
         }
@@ -68,8 +68,8 @@ interface NoteOfTargetSubdirectory {
 
         }
 
-        override suspend fun contains(targetId: Long, checkInTime: String): Boolean {
-            return cache.noteOfTargetDao().contains(targetId, checkInTime)
+        override suspend fun contains(title: String, checkInTime: String): Boolean {
+            return cache.noteOfTargetDao().contains(title, checkInTime)
         }
 
     }

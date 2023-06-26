@@ -8,8 +8,10 @@ object TestComponents {
     val person = ObjectOfObservationEntity(
         id = 1,
         firstName = "Test name",
+        lastName = "lastname",
         description = "Test description",
         observed = false,
-        checkInTime = OffsetDateTime.now()
+        checkInTime = OffsetDateTime.now(),
+        isActive = true
     )
 }

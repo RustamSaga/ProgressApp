@@ -2,8 +2,10 @@ package com.rustamsaga.progress.core.data.local.entity
 
 import androidx.room.*
 import com.rustamsaga.progress.core.data.local.Headings
+import com.rustamsaga.progress.core.domain.mapper.NoteBoxMapper
 import com.rustamsaga.progress.core.domain.mapper.NoteMapper
 import com.rustamsaga.progress.core.domain.mapper.ObjectOfObservationMapper
+import com.rustamsaga.progress.core.domain.mapper.TargetBoxMapper
 import com.rustamsaga.progress.core.utils.TimeConverters
 import java.time.OffsetDateTime
 
@@ -21,7 +23,11 @@ data class ObjectOfObservationEntity(
     val checkInTime: OffsetDateTime,
     val isActive: Boolean,
 ) {
-    suspend fun <O, T, N> map(mapper: ObjectOfObservationMapper<O>): O = mapper.mapObject(
+    suspend fun <O> map(
+        mapper: ObjectOfObservationMapper<O>,
+        targetBox: TargetBoxMapper,
+        noteBox: NoteBoxMapper
+    ): O = mapper.mapObject(
         id = id!!,
         firstName = firstName,
         lastName = lastName,
@@ -29,8 +35,8 @@ data class ObjectOfObservationEntity(
         observed = observed,
         checkInTime = checkInTime,
         isActive = isActive,
-        targets = emptyList<T>(),
-        notes = emptyList<N>()
+        targets = targetBox,
+        notes = noteBox
     )
 }
 
