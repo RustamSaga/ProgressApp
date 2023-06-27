@@ -1,7 +1,6 @@
 package com.rustamsaga.progress.core.room
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -11,21 +10,16 @@ import com.rustamsaga.progress.core.data.local.dao.ObjectOfObservationDao
 import com.rustamsaga.progress.core.data.local.dao.ProgressTargetDao
 import com.rustamsaga.progress.core.data.local.entity.ObjectOfObservationEntity
 import com.rustamsaga.progress.core.utils.TimeConverters
-import com.rustamsaga.progress.core.room.elements.Notes.createNotesOfUser
-import com.rustamsaga.progress.core.room.elements.Objects
 import com.rustamsaga.progress.core.room.elements.Objects.getListOfObject
 import com.rustamsaga.progress.core.room.elements.Objects.log
 import com.rustamsaga.progress.core.room.elements.Objects.obj
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
-import java.time.OffsetDateTime
 
 
 @RunWith(AndroidJUnit4::class)
