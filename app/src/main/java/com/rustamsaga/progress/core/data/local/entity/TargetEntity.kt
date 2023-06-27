@@ -1,5 +1,6 @@
 package com.rustamsaga.progress.core.data.local.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -29,6 +30,7 @@ data class TargetEntity(
 data class ParamOfTargetEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
+    @ColumnInfo(index = true)
     val targetId: Int,
     val name: String,
     val value: String

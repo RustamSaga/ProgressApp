@@ -1,6 +1,6 @@
 package com.rustamsaga.progress.core.data.mapper.boxes
 
-import com.rustamsaga.progress.core.data.local.entity.ProgressTargetData
+import com.rustamsaga.progress.core.data.local.ProgressTargetData
 import com.rustamsaga.progress.core.data.local.entity.ProgressTargetEntity
 import com.rustamsaga.progress.core.domain.mapper.TargetBoxMapper
 import com.rustamsaga.progress.core.domain.models.ProgressTargetModel

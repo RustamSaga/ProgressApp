@@ -7,9 +7,10 @@ import com.rustamsaga.progress.core.data.local.ProgressDatabase
 import com.rustamsaga.progress.core.data.local.dao.*
 import com.rustamsaga.progress.core.data.local.entity.CurrentProgressEntity
 import com.rustamsaga.progress.core.data.local.entity.StandardProgressEntity
-import com.rustamsaga.progress.core.domain.mapper.NoteMapper
-import com.rustamsaga.progress.core.domain.mapper.ProgressMapper
-import com.rustamsaga.progress.core.domain.mapper.TargetMapper
+import com.rustamsaga.progress.core.data.mapper.notes.NoteOfTargetToDomain
+import com.rustamsaga.progress.core.data.mapper.progresses.CurrentToModel
+import com.rustamsaga.progress.core.data.mapper.progresses.ProgressTargetToCache
+import com.rustamsaga.progress.core.data.mapper.progresses.StandardToModel
 import com.rustamsaga.progress.core.utils.TimeConverters
 import com.rustamsaga.progress.core.room.elements.Objects
 import com.rustamsaga.progress.core.room.elements.Targets
@@ -69,10 +70,10 @@ class ProgressesTest {
 
         userDao.insertObject(user)
         targetDao.insertTarget(target.map(
-            TargetMapper.ProgressTargetToCache(),
-            ProgressMapper.CurrentToModel(),
-            ProgressMapper.StandardToModel(),
-            NoteMapper.NoteOfTargetToDomain()
+            ProgressTargetToCache(),
+            CurrentToModel(),
+            StandardToModel(),
+            NoteOfTargetToDomain()
         ))
 
         currentProgressTarget.forEach {

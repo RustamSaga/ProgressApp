@@ -56,6 +56,7 @@ data class NoteOfObjectEntity(
     val noteId: Long? = null,
     val title: String,
     val description: String,
+    @ColumnInfo(index = true)
     val userId: Long,
     @TypeConverters(TimeConverters::class)
     val checkInTime: OffsetDateTime

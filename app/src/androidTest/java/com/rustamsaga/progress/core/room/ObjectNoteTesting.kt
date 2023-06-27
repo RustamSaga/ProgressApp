@@ -13,8 +13,7 @@ import com.rustamsaga.progress.core.room.elements.Notes
 import com.rustamsaga.progress.core.room.elements.Objects
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -71,11 +70,11 @@ class ObjectNoteTesting {
         assertTrue(actual)
 
         noteDao.deleteNote(notes[0])
-        assertTrue(
+        assertNull(
             noteDao.getNotesByDate(
                 userId = notes[0].userId,
                 date = TimeConverters().fromOffsetDateTime(notes[0].checkInTime)
-            ).isEmpty()
+            ).firstOrNull()
         )
 
         assertFalse(
@@ -104,8 +103,8 @@ class ObjectNoteTesting {
 
         userDao.deleteObject(user)
 
-        val actualList = noteDao.getNotesByUser(user.id!!).isEmpty()
-        assertTrue(actualList)
+        val actualList = noteDao.getNotesByUser(user.id!!).firstOrNull()
+        assertNull(actualList)
 
         val actualNote = noteDao.contains(
             user.id!!,

@@ -18,7 +18,7 @@ interface TargetDao {
     suspend fun deleteTarget(target: TargetEntity)
 
     @Query("SELECT * FROM target_entity WHERE id=:id")
-    suspend fun getPluginTargetById(id: Int): TargetEntity
+    suspend fun getPluginTargetById(id: Int): TargetEntity?
 
     @Query("SELECT * FROM target_entity")
     fun getAllPluginTargets(): Flow<List<TargetEntity>>

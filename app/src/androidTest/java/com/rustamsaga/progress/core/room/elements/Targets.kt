@@ -1,6 +1,6 @@
 package com.rustamsaga.progress.core.room.elements
 
-import com.rustamsaga.progress.core.data.local.entity.ProgressTargetData
+import com.rustamsaga.progress.core.data.local.ProgressTargetData
 import com.rustamsaga.progress.core.data.local.entity.ProgressTargetEntity
 import com.rustamsaga.progress.core.room.elements.Notes.createNoteOfProgressTarget
 import com.rustamsaga.progress.core.room.elements.Progresses.getListCurrentProgresses

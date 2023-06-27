@@ -1,9 +1,6 @@
 package com.rustamsaga.progress.core.data.local.entity
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.rustamsaga.progress.core.data.local.Headings
 import com.rustamsaga.progress.core.domain.mapper.ProgressMapper
 import com.rustamsaga.progress.core.domain.models.StandardProgressModel
@@ -25,6 +22,7 @@ import java.time.OffsetDateTime
 data class StandardProgressEntity(
     @PrimaryKey(autoGenerate = true)
     val idUnit: Long? = null,
+    @ColumnInfo(index = true)
     val targetId: Long,
     val title: String,
     val description: String,

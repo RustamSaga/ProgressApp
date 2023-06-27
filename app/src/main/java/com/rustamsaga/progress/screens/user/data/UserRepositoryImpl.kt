@@ -1,6 +1,5 @@
 package com.rustamsaga.progress.screens.user.data
 
-import com.rustamsaga.progress.core.data.CacheDataSource
 import com.rustamsaga.progress.core.domain.models.*
 import com.rustamsaga.progress.screens.user.domain.UserCollector
 import com.rustamsaga.progress.screens.user.domain.UserRepository

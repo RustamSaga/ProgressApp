@@ -1,6 +1,7 @@
-package com.rustamsaga.progress.core.data.local.entity
+package com.rustamsaga.progress.core.data.local
 
 import androidx.room.Relation
+import com.rustamsaga.progress.core.data.local.entity.NoteOfObjectEntity
 import com.rustamsaga.progress.core.domain.mapper.*
 import java.time.OffsetDateTime
 

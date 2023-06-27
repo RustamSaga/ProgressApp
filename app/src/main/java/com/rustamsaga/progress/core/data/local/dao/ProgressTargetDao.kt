@@ -2,9 +2,8 @@ package com.rustamsaga.progress.core.data.local.dao
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.Companion.REPLACE
-import com.rustamsaga.progress.core.data.local.entity.ProgressTargetData
+import com.rustamsaga.progress.core.data.local.ProgressTargetData
 import com.rustamsaga.progress.core.data.local.entity.ProgressTargetEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProgressTargetDao {

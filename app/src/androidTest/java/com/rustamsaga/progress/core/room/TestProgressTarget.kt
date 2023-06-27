@@ -9,9 +9,10 @@ import com.rustamsaga.progress.core.data.local.dao.*
 import com.rustamsaga.progress.core.data.local.entity.CurrentProgressEntity
 import com.rustamsaga.progress.core.data.local.entity.NoteOfProgressTargetEntity
 import com.rustamsaga.progress.core.data.local.entity.StandardProgressEntity
-import com.rustamsaga.progress.core.domain.mapper.NoteMapper
-import com.rustamsaga.progress.core.domain.mapper.ProgressMapper
-import com.rustamsaga.progress.core.domain.mapper.TargetMapper
+import com.rustamsaga.progress.core.data.mapper.notes.NoteOfTargetToDomain
+import com.rustamsaga.progress.core.data.mapper.progresses.CurrentToModel
+import com.rustamsaga.progress.core.data.mapper.progresses.ProgressTargetToCache
+import com.rustamsaga.progress.core.data.mapper.progresses.StandardToModel
 import com.rustamsaga.progress.core.utils.TimeConverters
 import com.rustamsaga.progress.core.room.elements.Objects.obj
 import com.rustamsaga.progress.core.room.elements.Targets.getListOfChildrenTarget
@@ -66,7 +67,7 @@ class TestProgressTarget {
         userDao.insertObject(user)
         targetDao.insertTarget(target)
 
-        assertEquals(user, userDao.getObject(user.id!!))
+        assertEquals(user.checkInTime, userDao.getObjectWholly(user.id!!)!!.checkInTime)
         assertTrue(targetDao.contains(target.name, TimeConverters().fromOffsetDateTime(target.checkInTime)))
         assertEquals(target, targetDao.getTargetEntityById(target.id!!))
 
@@ -92,10 +93,10 @@ class TestProgressTarget {
 
         userDao.insertObject(user)
         targetDao.insertTarget(target.map(
-            TargetMapper.ProgressTargetToCache(),
-            ProgressMapper.CurrentToModel(),
-            ProgressMapper.StandardToModel(),
-            NoteMapper.NoteOfTargetToDomain()
+            ProgressTargetToCache(),
+            CurrentToModel(),
+            StandardToModel(),
+            NoteOfTargetToDomain()
         ))
         notesTarget.forEach {
             note.insertNote(it)
@@ -107,15 +108,15 @@ class TestProgressTarget {
             standardProgressDao.insertStandardProgress(it)
         }
 
-        assertEquals(user, userDao.getObject(user.id!!))
+        assertEquals(user.checkInTime, userDao.getObjectWholly(user.id!!)!!.checkInTime)
         assertTrue(targetDao.contains(target.name, TimeConverters().fromOffsetDateTime(target.checkInTime)))
         assertEquals(target, targetDao.getTargetDataById(target.id))
 
         targetDao.deleteTarget(target.map(
-            TargetMapper.ProgressTargetToCache(),
-            ProgressMapper.CurrentToModel(),
-            ProgressMapper.StandardToModel(),
-            NoteMapper.NoteOfTargetToDomain()
+            ProgressTargetToCache(),
+            CurrentToModel(),
+            StandardToModel(),
+            NoteOfTargetToDomain()
         ))
 
         assertNull(targetDao.getTargetDataById(target.id))
@@ -131,19 +132,19 @@ class TestProgressTarget {
         userDao.insertObject(user)
         targetDao.insertTarget(
             target.map(
-                targetMapper = TargetMapper.ProgressTargetToCache(),
-                currentProgressMapper = ProgressMapper.CurrentToModel(),
-                standardProgressMapper = ProgressMapper.StandardToModel(),
-                noteMapper = NoteMapper.NoteOfTargetToDomain()
+                ProgressTargetToCache(),
+                CurrentToModel(),
+                StandardToModel(),
+                NoteOfTargetToDomain()
             )
         )
         childrenTarget.forEach {
             targetDao.insertTarget(
                 it.map(
-                    targetMapper = TargetMapper.ProgressTargetToCache(),
-                    currentProgressMapper = ProgressMapper.CurrentToModel(),
-                    standardProgressMapper = ProgressMapper.StandardToModel(),
-                    noteMapper = NoteMapper.NoteOfTargetToDomain()
+                    ProgressTargetToCache(),
+                    CurrentToModel(),
+                    StandardToModel(),
+                    NoteOfTargetToDomain()
                 )
             )
         }
@@ -167,10 +168,10 @@ class TestProgressTarget {
         userDao.insertObject(user)
         targetDao.insertTarget(
             target.map(
-                targetMapper = TargetMapper.ProgressTargetToCache(),
-                currentProgressMapper = ProgressMapper.CurrentToModel(),
-                standardProgressMapper = ProgressMapper.StandardToModel(),
-                noteMapper = NoteMapper.NoteOfTargetToDomain()
+                ProgressTargetToCache(),
+                CurrentToModel(),
+                StandardToModel(),
+                NoteOfTargetToDomain()
             )
         )
 
@@ -217,10 +218,10 @@ class TestProgressTarget {
 
         targetDao.deleteTarget(
             target.map(
-                targetMapper = TargetMapper.ProgressTargetToCache(),
-                currentProgressMapper = ProgressMapper.CurrentToModel(),
-                standardProgressMapper = ProgressMapper.StandardToModel(),
-                noteMapper = NoteMapper.NoteOfTargetToDomain()
+                ProgressTargetToCache(),
+                CurrentToModel(),
+                StandardToModel(),
+                NoteOfTargetToDomain()
             )
         )
 

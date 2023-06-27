@@ -19,9 +19,11 @@ import java.time.OffsetDateTime
 )
 data class ProgressTargetEntity(
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(index = true)
     val id: Long? = null,
     val name: String,
     val description: String,
+    @ColumnInfo(index = true)
     val userId: Long,
     val parentTarget: Long = Headings.NO_PARENTS,
     val isParent: Boolean,
@@ -62,6 +64,7 @@ data class ProgressTargetEntity(
 data class NoteOfProgressTargetEntity(
     @PrimaryKey(autoGenerate = true)
     val noteId: Long? = null,
+    @ColumnInfo(index = true)
     val targetId: Long,
     val title: String,
     val description: String,

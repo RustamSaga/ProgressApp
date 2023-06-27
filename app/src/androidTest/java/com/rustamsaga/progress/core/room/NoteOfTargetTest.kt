@@ -55,7 +55,7 @@ class NoteOfTargetTest {
 
             Assert.assertTrue(
                 note.contains(
-                    1, TimeConverters().fromOffsetDateTime(it.checkInTime)
+                    it.title, TimeConverters().fromOffsetDateTime(it.checkInTime)
                 )
             )
         }
@@ -63,7 +63,7 @@ class NoteOfTargetTest {
         note.deleteNote(noteOfTarget[0])
         Assert.assertFalse(
             note.contains(
-                target.id!!,
+                target.name,
                 TimeConverters().fromOffsetDateTime(noteOfTarget[0].checkInTime)
             )
         )
@@ -82,14 +82,14 @@ class NoteOfTargetTest {
 
             Assert.assertTrue(
                 note.contains(
-                    1, TimeConverters().fromOffsetDateTime(it.checkInTime)
+                    it.title, TimeConverters().fromOffsetDateTime(it.checkInTime)
                 )
             )
         }
 
         targetDao.deleteTarget(target)
-        val condition = note.getNotesByTargetId(target.id!!).isEmpty()
-        Assert.assertTrue(condition)
+        val condition = note.getNotesByTargetId(target.id!!).firstOrNull()
+        Assert.assertNull(condition)
 
     }
 
@@ -106,14 +106,14 @@ class NoteOfTargetTest {
 
             Assert.assertTrue(
                 note.contains(
-                    1, TimeConverters().fromOffsetDateTime(it.checkInTime)
+                    it.title, TimeConverters().fromOffsetDateTime(it.checkInTime)
                 )
             )
         }
 
         userDao.deleteObject(user)
-        val condition = note.getNotesByTargetId(target.id!!).isEmpty()
-        Assert.assertTrue(condition)
+        val condition = note.getNotesByTargetId(target.id!!).firstOrNull()
+        Assert.assertNull(condition)
 
     }
 }

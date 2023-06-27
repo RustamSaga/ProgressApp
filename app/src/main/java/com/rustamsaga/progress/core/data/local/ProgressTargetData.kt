@@ -1,7 +1,9 @@
-package com.rustamsaga.progress.core.data.local.entity
+package com.rustamsaga.progress.core.data.local
 
 import androidx.room.Relation
-import com.rustamsaga.progress.core.data.local.Headings
+import com.rustamsaga.progress.core.data.local.entity.CurrentProgressEntity
+import com.rustamsaga.progress.core.data.local.entity.NoteOfProgressTargetEntity
+import com.rustamsaga.progress.core.data.local.entity.StandardProgressEntity
 import com.rustamsaga.progress.core.domain.mapper.NoteMapper
 import com.rustamsaga.progress.core.domain.mapper.ProgressMapper
 import com.rustamsaga.progress.core.domain.mapper.TargetMapper

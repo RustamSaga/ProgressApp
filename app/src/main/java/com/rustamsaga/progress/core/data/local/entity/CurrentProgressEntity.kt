@@ -22,6 +22,7 @@ import java.time.OffsetDateTime
 data class CurrentProgressEntity(
     @PrimaryKey(autoGenerate = true)
     val idUnit: Long? = null,
+    @ColumnInfo(index = true)
     val targetId: Long,
     val title: String,
     val description: String,

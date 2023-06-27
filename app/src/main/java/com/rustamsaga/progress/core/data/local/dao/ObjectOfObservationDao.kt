@@ -2,9 +2,8 @@ package com.rustamsaga.progress.core.data.local.dao
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.Companion.REPLACE
-import com.rustamsaga.progress.core.data.local.entity.ObjectOfObservationData
+import com.rustamsaga.progress.core.data.local.ObjectOfObservationData
 import com.rustamsaga.progress.core.data.local.entity.ObjectOfObservationEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ObjectOfObservationDao {
@@ -17,10 +16,8 @@ interface ObjectOfObservationDao {
 //    suspend fun getAPartOfObject(id: Long): ObjectOfObservationEntity?
 
     @Query("SELECT * FROM person_table WHERE id =:id")
+    @Transaction
     suspend fun getObjectWholly(id: Long): ObjectOfObservationData?
-
-    @Query("SELECT * FROM person_table WHERE id =:id")
-    suspend fun getObject(id: Long): ObjectOfObservationEntity
 
     @Query(
         """
