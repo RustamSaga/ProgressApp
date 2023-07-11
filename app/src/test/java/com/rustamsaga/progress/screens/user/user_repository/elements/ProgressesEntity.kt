@@ -1,10 +1,10 @@
-package com.rustamsaga.progress.core.room.elements
+package com.rustamsaga.progress.screens.user.user_repository.elements
 
 import com.rustamsaga.progress.core.data.local.entity.CurrentProgressEntity
 import com.rustamsaga.progress.core.data.local.entity.StandardProgressEntity
 import java.time.OffsetDateTime
 
-object Progresses {
+object ProgressesEntity {
 
     fun getListCurrentProgresses(targetId: Long): List<CurrentProgressEntity> {
         val list = mutableListOf<CurrentProgressEntity>()

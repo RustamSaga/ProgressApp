@@ -15,7 +15,7 @@ class UserRepositoryImpl(
         return try {
             val result = userCollector.getUser()
             Result.success(result)
-        }catch (e: IllegalStateException){
+        }catch (e: Throwable){
             Result.failure(e)
         }
     }

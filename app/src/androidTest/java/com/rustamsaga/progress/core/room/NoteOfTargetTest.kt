@@ -6,8 +6,8 @@ import androidx.test.core.app.ApplicationProvider
 import com.rustamsaga.progress.core.data.local.ProgressDatabase
 import com.rustamsaga.progress.core.data.local.dao.*
 import com.rustamsaga.progress.core.utils.TimeConverters
-import com.rustamsaga.progress.core.room.elements.Notes
-import com.rustamsaga.progress.core.room.elements.Objects
+import com.rustamsaga.progress.core.room.elements.NotesEntity
+import com.rustamsaga.progress.core.room.elements.ObjectsEntity
 import com.rustamsaga.progress.core.room.elements.Targets
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -44,9 +44,9 @@ class NoteOfTargetTest {
 
     @Test
     fun createNote_marksTestAsMatched_allTestsPassed() = runBlocking {
-        val user = Objects.obj
+        val user = ObjectsEntity.obj
         val target = Targets.progressTargetEntity
-        val noteOfTarget = Notes.createNoteOfProgressTarget(target.id!!)
+        val noteOfTarget = NotesEntity.createNoteOfProgressTarget(target.id!!)
 
         userDao.insertObject(user)
         targetDao.insertTarget(target)
@@ -71,9 +71,9 @@ class NoteOfTargetTest {
 
     @Test
     fun linkageTest_byDeleteTarget_allTestsPassed() = runBlocking {
-        val user = Objects.obj
+        val user = ObjectsEntity.obj
         val target = Targets.progressTargetEntity
-        val noteOfTarget = Notes.createNoteOfProgressTarget(target.id!!)
+        val noteOfTarget = NotesEntity.createNoteOfProgressTarget(target.id!!)
 
         userDao.insertObject(user)
         targetDao.insertTarget(target)
@@ -95,9 +95,9 @@ class NoteOfTargetTest {
 
     @Test
     fun linkageTest_byDeleteUser_allTestsPassed() = runBlocking {
-        val user = Objects.obj
+        val user = ObjectsEntity.obj
         val target = Targets.progressTargetEntity
-        val noteOfTarget = Notes.createNoteOfProgressTarget(target.id!!)
+        val noteOfTarget = NotesEntity.createNoteOfProgressTarget(target.id!!)
 
         userDao.insertObject(user)
         targetDao.insertTarget(target)

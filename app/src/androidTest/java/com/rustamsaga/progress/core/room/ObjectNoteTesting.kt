@@ -9,8 +9,8 @@ import com.rustamsaga.progress.core.data.local.dao.NoteOfObjectDao
 import com.rustamsaga.progress.core.data.local.dao.ObjectOfObservationDao
 import com.rustamsaga.progress.core.data.local.dao.ProgressTargetDao
 import com.rustamsaga.progress.core.utils.TimeConverters
-import com.rustamsaga.progress.core.room.elements.Notes
-import com.rustamsaga.progress.core.room.elements.Objects
+import com.rustamsaga.progress.core.room.elements.NotesEntity
+import com.rustamsaga.progress.core.room.elements.ObjectsEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.*
@@ -48,8 +48,8 @@ class ObjectNoteTesting {
 
     @Test
     fun createObjectNotes_marksTestAsMatched_allTestsPassed() = runBlocking {
-        val user = Objects.obj
-        val notes = Notes.createNotesOfUser(user.id!!)
+        val user = ObjectsEntity.obj
+        val notes = NotesEntity.createNotesOfUser(user.id!!)
 
         userDao.insertObject(user)
         notes.forEach {
@@ -87,8 +87,8 @@ class ObjectNoteTesting {
 
     @Test
     fun noteDependency_deletingNotesAfterDeletingAnObject_allTestsPassed() = runBlocking {
-        val user = Objects.obj
-        val notes = Notes.createNotesOfUser(user.id!!)
+        val user = ObjectsEntity.obj
+        val notes = NotesEntity.createNotesOfUser(user.id!!)
 
         userDao.insertObject(user)
         notes.forEach {

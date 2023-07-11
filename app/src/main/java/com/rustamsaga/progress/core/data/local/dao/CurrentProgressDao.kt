@@ -3,7 +3,6 @@ package com.rustamsaga.progress.core.data.local.dao
 import androidx.room.*
 import com.rustamsaga.progress.core.data.local.entity.CurrentProgressEntity
 import com.rustamsaga.progress.core.utils.TimeConverters
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 @TypeConverters(TimeConverters::class)
@@ -11,6 +10,9 @@ interface CurrentProgressDao {
 
     @Insert
     suspend fun insertCurrentProgress(currentProgress: CurrentProgressEntity)
+
+    @Insert
+    suspend fun insertCurrentProgresses(currentProgresses: List<CurrentProgressEntity>)
 
     @Update
     suspend fun updateCurrentProgress(currentProgress: CurrentProgressEntity)

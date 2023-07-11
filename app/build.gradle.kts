@@ -19,9 +19,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments["room.schemaLocation"] = "${ProjectConfig.appId}/schemas"
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
             }
         }
 

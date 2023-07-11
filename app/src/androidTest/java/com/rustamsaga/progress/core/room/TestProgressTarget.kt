@@ -10,11 +10,10 @@ import com.rustamsaga.progress.core.data.local.entity.CurrentProgressEntity
 import com.rustamsaga.progress.core.data.local.entity.NoteOfProgressTargetEntity
 import com.rustamsaga.progress.core.data.local.entity.StandardProgressEntity
 import com.rustamsaga.progress.core.data.mapper.notes.NoteOfTargetToDomain
-import com.rustamsaga.progress.core.data.mapper.progresses.CurrentToModel
-import com.rustamsaga.progress.core.data.mapper.progresses.ProgressTargetToCache
-import com.rustamsaga.progress.core.data.mapper.progresses.StandardToModel
+import com.rustamsaga.progress.core.data.mapper.progresses.*
 import com.rustamsaga.progress.core.utils.TimeConverters
-import com.rustamsaga.progress.core.room.elements.Objects.obj
+import com.rustamsaga.progress.core.room.elements.ObjectsEntity.obj
+import com.rustamsaga.progress.core.room.elements.Targets
 import com.rustamsaga.progress.core.room.elements.Targets.getListOfChildrenTarget
 import com.rustamsaga.progress.core.room.elements.Targets.progressTargetData
 import com.rustamsaga.progress.core.room.elements.Targets.progressTargetEntity
@@ -156,6 +155,19 @@ class TestProgressTarget {
 
         assertNull(targetDao.getTargetDataById(target.id))
         assertTrue(targetDao.getChildrenTarget(target.id).isEmpty())
+    }
+
+    @Test
+    fun insertAllTargets() = runBlocking {
+        val user = obj
+        val targets = Targets.getListTargets()
+
+        userDao.insertObject(user)
+        targetDao.insertTargets(targets)
+        val actual = targetDao.getAllTargets().map { it.map(
+            ProgressTargetToCache(), CurrentToModel(), StandardToModel(), NoteOfTargetToDomain()
+        ) }
+        assertEquals(targets, actual)
     }
 
     @Test

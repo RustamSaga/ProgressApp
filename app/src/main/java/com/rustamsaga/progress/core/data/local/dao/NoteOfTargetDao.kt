@@ -1,13 +1,14 @@
 package com.rustamsaga.progress.core.data.local.dao
 
 import androidx.room.*
+import androidx.room.OnConflictStrategy.Companion.REPLACE
 import com.rustamsaga.progress.core.data.local.entity.NoteOfProgressTargetEntity
 
 @Dao
 interface NoteOfTargetDao {
 
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     suspend fun insertNote(note: NoteOfProgressTargetEntity)
 
     @Delete
@@ -38,5 +39,8 @@ interface NoteOfTargetDao {
         """
     )
     suspend fun contains(title: String, checkInTime: String): Boolean
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertNotes(notes: List<NoteOfProgressTargetEntity>)
 
 }

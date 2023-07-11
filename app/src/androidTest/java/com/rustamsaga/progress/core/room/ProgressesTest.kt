@@ -12,7 +12,7 @@ import com.rustamsaga.progress.core.data.mapper.progresses.CurrentToModel
 import com.rustamsaga.progress.core.data.mapper.progresses.ProgressTargetToCache
 import com.rustamsaga.progress.core.data.mapper.progresses.StandardToModel
 import com.rustamsaga.progress.core.utils.TimeConverters
-import com.rustamsaga.progress.core.room.elements.Objects
+import com.rustamsaga.progress.core.room.elements.ObjectsEntity
 import com.rustamsaga.progress.core.room.elements.Targets
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -54,7 +54,7 @@ class ProgressesTest {
 
     @Test
     fun gettingProgresses_marksTestAsMatched_allTestsPassed() = runBlocking {
-        val user = Objects.obj
+        val user = ObjectsEntity.obj
         val target = Targets.progressTargetData
         val currentProgressTarget = target.currentProgress
         val standardProgressTarget = target.standardProgress

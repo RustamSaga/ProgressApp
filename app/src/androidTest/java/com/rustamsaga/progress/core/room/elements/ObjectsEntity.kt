@@ -4,7 +4,7 @@ import android.util.Log
 import com.rustamsaga.progress.core.data.local.entity.ObjectOfObservationEntity
 import java.time.OffsetDateTime
 
-object Objects {
+object ObjectsEntity {
 
     val obj: ObjectOfObservationEntity =
         ObjectOfObservationEntity(
@@ -19,7 +19,7 @@ object Objects {
 
     fun getListOfObject(): List<ObjectOfObservationEntity> {
         val list = mutableListOf<ObjectOfObservationEntity>()
-        for (i in 1..10) {
+        for (i in 1..5) {
             list.add(
                 ObjectOfObservationEntity(
                     id = i.toLong(),

@@ -11,6 +11,9 @@ interface ProgressTargetDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertTarget(target: ProgressTargetEntity)
 
+    @Insert(onConflict = REPLACE)
+    suspend fun insertTargets(targets: List<ProgressTargetEntity>)
+
     @Transaction
     @Query("SELECT * FROM progress_target_table WHERE id =:id")
     suspend fun getTargetDataById(id: Long): ProgressTargetData?

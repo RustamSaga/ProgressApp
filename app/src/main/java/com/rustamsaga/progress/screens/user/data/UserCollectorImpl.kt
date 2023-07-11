@@ -1,10 +1,7 @@
 package com.rustamsaga.progress.screens.user.data
 
-import com.rustamsaga.progress.R
 import com.rustamsaga.progress.core.data.*
 import com.rustamsaga.progress.core.data.local.entity.*
-import com.rustamsaga.progress.core.data.mapper.ObjectToCache
-import com.rustamsaga.progress.core.data.mapper.ObjectToDomain
 import com.rustamsaga.progress.core.domain.mapper.*
 import com.rustamsaga.progress.core.domain.models.*
 import com.rustamsaga.progress.core.utils.ManageResources
@@ -16,8 +13,8 @@ import java.time.OffsetDateTime
 class UserCollectorImpl(
     private val manageResources: ManageResources,
     private val cacheDataSource: CacheDataSource,
-    private val objectToDomain: ObjectToDomain,
-    private val objectToCache: ObjectToCache,
+    private val objectToDomain: ObjectOfObservationMapper<ObjectOfObservationModel>,
+    private val objectToCache: ObjectOfObservationMapper<ObjectOfObservationEntity>,
     private val noteBoxMapper: NoteBoxMapper,
     private val targetBoxMapper: TargetBoxMapper,
     private val targetToDomain: TargetMapper<ProgressTargetModel>,
@@ -29,7 +26,7 @@ class UserCollectorImpl(
     private val noteTargetToDomain: NoteMapper<NoteOfProgressTargetModel>,
     private val noteTargetToCache: NoteMapper<NoteOfProgressTargetEntity>,
     private val noteUserToCache: NoteMapper<NoteOfObjectEntity>,
-    private val targetSpreader: Spreader<ProgressTargetModel, ProgressTargetEntity>
+    private val targetSpreader: Spreader<ProgressTargetModel, ProgressTargetModel>
 ) : UserCollector {
     private val userId = 1L
     override suspend fun getUser(): ObjectOfObservationModel {
@@ -65,20 +62,7 @@ class UserCollectorImpl(
     }
 
     override suspend fun deleteUser(user: ObjectOfObservationModel): Boolean {
-        cacheDataSource.objectOfObservationDao().insertObject(
-            user.map(
-                mapper = objectToCache,
-                noteBox = noteBoxMapper,
-                targetBox = targetBoxMapper
-            ).copy(
-                firstName = manageResources.string(id = R.string.progressor),
-                lastName = "",
-                description = "",
-                observed = false,
-                checkInTime = OffsetDateTime.now(),
-                isActive = true
-            )
-        )
+        cacheDataSource.objectOfObservationDao().insertObject(userDefault)
 
         user.targets.forEach {
             deleteTarget(it)
@@ -96,14 +80,14 @@ class UserCollectorImpl(
     }
 
     override suspend fun createTarget(target: ProgressTargetModel): Boolean {
-        cacheDataSource.progressTargetDao().insertTarget(
-            target.map(
-                targetToCache
-            )
-        )
+        targetSpreader.decompose(target)
+
         return containsTarget(target.name, target.checkInTime)
     }
 
+    /**
+     * Returns `true` if target deleted.
+     */
     override suspend fun deleteTarget(target: ProgressTargetModel): Boolean {
         cacheDataSource.progressTargetDao().deleteTarget(
             target.map(
@@ -122,7 +106,9 @@ class UserCollectorImpl(
         return containsNoteUser(note.checkInTime)
     }
 
-
+    /**
+     * Returns `true` if note deleted.
+     */
     override suspend fun deleteNoteUser(note: NoteOfObjectModel): Boolean {
         cacheDataSource.noteOfObjectDao().deleteNote(
             note.map(
@@ -147,6 +133,9 @@ class UserCollectorImpl(
         return containsNoteTarget(note.title, note.checkInTime)
     }
 
+    /**
+     * Returns `true` if note deleted.
+     */
     override suspend fun deleteNoteTarget(note: NoteOfProgressTargetModel): Boolean {
         cacheDataSource.noteOfTargetDao().deleteNote(
             note.map(
@@ -182,6 +171,9 @@ class UserCollectorImpl(
 
     }
 
+    /**
+     * Returns `true` if progress deleted.
+     */
     override suspend fun deleteCurrentProgress(progress: CurrentProgressModel): Boolean {
         cacheDataSource.currentProgressDao().deleteCurrentProgress(
             progress.map(
@@ -219,13 +211,16 @@ class UserCollectorImpl(
         return containsStandardProgress(progress.title, progress.checkInTime)
     }
 
+    /**
+     * Returns `true` if progress deleted.
+     */
     override suspend fun deleteStandardProgress(progress: StandardProgressModel): Boolean {
         cacheDataSource.standardProgressDao().deleteStandardProgress(
             progress.map(
                 mapper = standardProgressToCache
             )
         )
-        return containsStandardProgress(progress.title, progress.checkInTime)
+        return !containsStandardProgress(progress.title, progress.checkInTime)
     }
 
     override suspend fun containsStandardProgress(
@@ -244,5 +239,17 @@ class UserCollectorImpl(
         )
     }
 
+    companion object {
+        val userDefault: ObjectOfObservationEntity =
+            ObjectOfObservationEntity(
+                id = 1,
+                firstName = "Progressor",
+                lastName = "",
+                description = "",
+                observed = false,
+                checkInTime = OffsetDateTime.now(),
+                isActive = true
+            )
+    }
 
 }

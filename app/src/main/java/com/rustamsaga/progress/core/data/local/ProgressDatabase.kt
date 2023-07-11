@@ -19,7 +19,7 @@ import com.rustamsaga.progress.core.data.local.entity.*
         NoteOfObjectEntity::class,
         NoteOfProgressTargetEntity::class
     ],
-    version = 2
+    version = 1
 )
 @TypeConverters(TimeConverters::class)
 abstract class ProgressDatabase: RoomDatabase() {

@@ -1,12 +1,8 @@
 package com.rustamsaga.progress.core.data.local.dao
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.Companion.REPLACE
-import com.rustamsaga.progress.core.data.local.entity.CurrentProgressEntity
 import com.rustamsaga.progress.core.data.local.entity.StandardProgressEntity
 import com.rustamsaga.progress.core.utils.TimeConverters
-import kotlinx.coroutines.flow.Flow
-import java.time.OffsetDateTime
 
 @Dao
 @TypeConverters(TimeConverters::class)
@@ -44,5 +40,8 @@ interface StandardProgressDao {
         """
     )
     suspend fun contains(title: String, checkInTime: String): Boolean
+
+    @Insert
+    suspend fun insertStandardProgresses(progresses: List<StandardProgressEntity>)
 
 }

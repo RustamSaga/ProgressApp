@@ -2,7 +2,7 @@ package com.rustamsaga.progress.core.room.elements
 
 import com.rustamsaga.progress.core.data.local.ProgressTargetData
 import com.rustamsaga.progress.core.data.local.entity.ProgressTargetEntity
-import com.rustamsaga.progress.core.room.elements.Notes.createNoteOfProgressTarget
+import com.rustamsaga.progress.core.room.elements.NotesEntity.createNoteOfProgressTarget
 import com.rustamsaga.progress.core.room.elements.Progresses.getListCurrentProgresses
 import com.rustamsaga.progress.core.room.elements.Progresses.getListStandardProgresses
 import java.time.OffsetDateTime
@@ -51,6 +51,25 @@ object Targets {
                     notes = createNoteOfProgressTarget(i.toLong()),
                     currentProgress = getListCurrentProgresses(1L),
                     standardProgress = getListStandardProgresses(1L)
+                )
+            )
+        }
+        return list
+    }
+
+    fun getListTargets(): List<ProgressTargetEntity> {
+        val list = mutableListOf<ProgressTargetEntity>()
+        for (i in 1..5) {
+            list.add(
+                ProgressTargetEntity(
+                    id = i.toLong(),
+                    name = "Group of targets$i",
+                    description = "test description$i",
+                    userId = 1,
+                    parentTarget = -1,
+                    isParent = false,
+                    checkInTime = OffsetDateTime.now().plusDays(1),
+                    isActive = true
                 )
             )
         }

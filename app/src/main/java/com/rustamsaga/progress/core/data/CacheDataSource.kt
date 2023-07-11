@@ -16,7 +16,7 @@ interface CacheDataSource :
     NoteOfObjectDataSource,
     NoteOfTargetDataSource {
 
-    abstract class Base(context: Context) : CacheDataSource {
+    class Base(context: Context) : CacheDataSource {
 
         private val ProgressDB: ProgressDatabase = Room.databaseBuilder(
             context,
@@ -24,31 +24,31 @@ interface CacheDataSource :
             Headings.DATABASE_NAME
         ).build()
 
-        override fun objectOfObservationDao(): ObjectOfObservationDao {
+        override suspend fun objectOfObservationDao(): ObjectOfObservationDao {
             return ProgressDB.objectOfObservationDao()
         }
 
-        override fun progressTargetDao(): ProgressTargetDao {
+        override suspend fun progressTargetDao(): ProgressTargetDao {
             return ProgressDB.progressTargetDao()
         }
 
-        override fun currentProgressDao(): CurrentProgressDao {
+        override suspend fun currentProgressDao(): CurrentProgressDao {
             return ProgressDB.currentProgressDao()
         }
 
-        override fun standardProgressDao(): StandardProgressDao {
+        override suspend fun standardProgressDao(): StandardProgressDao {
             return ProgressDB.standardProgressDao()
         }
 
-        override fun targetDao(): TargetDao {
+        override suspend fun targetDao(): TargetDao {
             return ProgressDB.targetDao()
         }
 
-        override fun noteOfObjectDao(): NoteOfObjectDao {
+        override suspend fun noteOfObjectDao(): NoteOfObjectDao {
             return ProgressDB.noteObjectOfObservationDao()
         }
 
-        override fun noteOfTargetDao(): NoteOfTargetDao {
+        override suspend fun noteOfTargetDao(): NoteOfTargetDao {
             return ProgressDB.noteOfTargetDao()
         }
 
@@ -57,29 +57,29 @@ interface CacheDataSource :
 }
 
 interface ObjectOfObservationCacheDataSource {
-    fun objectOfObservationDao(): ObjectOfObservationDao
+    suspend fun objectOfObservationDao(): ObjectOfObservationDao
 }
 
 interface ProgressTargetCacheDataSource {
-    fun progressTargetDao(): ProgressTargetDao
+    suspend fun progressTargetDao(): ProgressTargetDao
 }
 
 interface CurrentProgressDataSource {
-    fun currentProgressDao(): CurrentProgressDao
+    suspend fun currentProgressDao(): CurrentProgressDao
 }
 
 interface StandardProgressDataSource {
-    fun standardProgressDao(): StandardProgressDao
+    suspend fun standardProgressDao(): StandardProgressDao
 }
 
 interface TargetDataSource {
-    fun targetDao(): TargetDao
+    suspend fun targetDao(): TargetDao
 }
 
 interface NoteOfObjectDataSource {
-    fun noteOfObjectDao(): NoteOfObjectDao
+    suspend fun noteOfObjectDao(): NoteOfObjectDao
 }
 
 interface NoteOfTargetDataSource {
-    fun noteOfTargetDao(): NoteOfTargetDao
+    suspend fun noteOfTargetDao(): NoteOfTargetDao
 }

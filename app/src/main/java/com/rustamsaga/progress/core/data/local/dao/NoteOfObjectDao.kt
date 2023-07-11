@@ -10,6 +10,9 @@ interface NoteOfObjectDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertNote(note: NoteOfObjectEntity)
 
+    @Insert(onConflict = REPLACE)
+    suspend fun insertNotes(note: List<NoteOfObjectEntity>)
+
     @Delete
     suspend fun deleteNote(note: NoteOfObjectEntity)
 

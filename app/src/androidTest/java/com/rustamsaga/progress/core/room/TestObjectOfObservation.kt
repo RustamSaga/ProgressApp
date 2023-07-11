@@ -10,9 +10,9 @@ import com.rustamsaga.progress.core.data.local.dao.ObjectOfObservationDao
 import com.rustamsaga.progress.core.data.local.dao.ProgressTargetDao
 import com.rustamsaga.progress.core.data.local.entity.ObjectOfObservationEntity
 import com.rustamsaga.progress.core.utils.TimeConverters
-import com.rustamsaga.progress.core.room.elements.Objects.getListOfObject
-import com.rustamsaga.progress.core.room.elements.Objects.log
-import com.rustamsaga.progress.core.room.elements.Objects.obj
+import com.rustamsaga.progress.core.room.elements.ObjectsEntity.getListOfObject
+import com.rustamsaga.progress.core.room.elements.ObjectsEntity.log
+import com.rustamsaga.progress.core.room.elements.ObjectsEntity.obj
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals

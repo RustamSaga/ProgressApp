@@ -2,6 +2,8 @@ package com.rustamsaga.progress.core.data.local
 
 import androidx.room.Relation
 import com.rustamsaga.progress.core.data.local.entity.NoteOfObjectEntity
+import com.rustamsaga.progress.core.data.mapper.boxes.NoteBoxMapperImp
+import com.rustamsaga.progress.core.data.mapper.notes.NoteOfObjectToDomain
 import com.rustamsaga.progress.core.domain.mapper.*
 import java.time.OffsetDateTime
 
@@ -32,6 +34,9 @@ data class ObjectOfObservationData(
         checkInTime = checkInTime,
         isActive = isActive,
         targets = targetBox,
-        notes = noteBox
+        notes = NoteBoxMapperImp(
+            noteModel = notes.map { it.map(NoteOfObjectToDomain()) },
+            noteEntity = notes
+        )
     )
 }
